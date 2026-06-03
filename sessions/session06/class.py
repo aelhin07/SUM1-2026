@@ -10,9 +10,11 @@ pwd = input("Password: ")
 salt_length = random.randint(5, 20)
 
 # Join the randomly generated characters to create the salt
+# See the documentation here: https://docs.python.org/3/library/secrets.html
 salt = ''.join(random.choices(string.ascii_letters + string.digits, k=salt_length)) 
 
 # Hash the password using SHA-256 using the hashlib library, and encode the password before hashing
+# See the documentation here: https://docs.python.org/3/library/hashlib.html 
 hashed_pwd = hashlib.sha256(pwd.encode()).hexdigest()
 
 # Combine the salt and the hashed password
