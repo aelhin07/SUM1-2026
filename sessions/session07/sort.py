@@ -2,7 +2,7 @@
 
 class SortingAlgorithms:
     def sort_one(self, lst):
-        """Selection Sort implementation"""
+        """Sort One"""
         for i in range(0, len(lst)-1):
             min_index = i
             for j in range(i+1, len(lst)):  # linearly traverse the unsorted portion
@@ -13,7 +13,7 @@ class SortingAlgorithms:
         return lst
 
     def sort_two(self, lst):
-        """Merge Sort implementation"""
+        """Sort Two"""
         if len(lst) > 1:
             # Split part of the algorithm
             middle = len(lst) // 2  # floor division to find middle of the list
@@ -50,7 +50,7 @@ class SortingAlgorithms:
         return lst
 
     def sort_three(self, lst):
-        """Bubble Sort implementation"""
+        """ Sort Three"""
         unsorted_end = len(lst) - 1
         while unsorted_end > 0:
             for i in range(unsorted_end):
