@@ -1,6 +1,5 @@
 # Terminal Wordle
-#### Video Demo: https://youtu.be/WOl3j9sJGRs?si=fivty5LeA7MoW7nm
-#### Description:
+#### Video Demo: https://www.youtube.com/watch?v=r1nXAF07jLI
 ## What is this project?
 Terminal Wordle is an exact replica of Wordle entirely playable in your terminal.  The player has 6 chances to guess a random secret 5-letter word.  When guessing text after each guess the letter is either green for being in the correct position, yellow for incorrect position, or gray if not among any of the letters to be guessed.  The game continues until you win or run out of guesses at which point the game asks if you want to play again.
 
