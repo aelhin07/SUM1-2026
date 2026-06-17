@@ -36,32 +36,27 @@ Upon completion of the Game, the Game will provide you with one opportunity to p
 ---
 ## Files in this project
 ### `project.py`
-This is the main file of the project, and it contains all the logic for the game. It includes the `main()` function and five other functions that each have a specific job.
+This is the main file of the project. It contains all the game logic. It has the `main()` function and five other functions. Each function has its own job.
+
 ### `load_word_list(filepath)`
-This function opens the `words.txt` file and reads it one line at a time. It creates a list with all the valid 5-letter words and changes them to uppercase so that the program can compare words consistently.
-If the file cannot be found, or if there are no valid words inside it, the program shows an error message and stops.
-We decided to use a separate file for the words instead of writing them directly in the code. This makes the game easier to update because we can add or remove words without changing the actual Python script.
+This function opens the `words.txt` file and reads each line. It creates a list of valid 5-letter words. It also changes every word to uppercase so the program can compare the words correctly. If the file is not found or has no valid words, the program shows an error message and stops. We keep the words in a separate file because it is easier to update. We can add or remove words without changing the Python code.
 
 ### `get_random_word(word_list)`
-This function takes the list of words and randomly chooses one using Python’s built-in `random.choice()` function.
-Before choosing a word, it checks that the list is not empty. If it is empty, the function raises a `ValueError`.
-We kept this as a separate function because it makes the code easier to understand and also allows us to test the random word selection by itself.
+This function takes the word list and chooses one random word using Python’s `random.choice()` function. Before choosing a word, it checks if the list is empty. If the list is empty, it raises a `ValueError`. We made this a separate function to keep the code simple and make it easier to test.
 
 ### `check_guess(guess, target)`
-This is the most important function in the game. It compares the player’s guess with the secret word and returns a list of tuples.
-Each tuple contains a letter and one of three possible results: `"correct"`, `"present"`, or `"absent"`.
-The function uses a two-pass approach to correctly handle duplicate letters. In the first pass, it checks which letters are in the correct position. In the second pass, it checks whether the remaining letters appear somewhere else in the word.
-This is important because it prevents duplicate letters from being counted more than once and makes the game follow the official Wordle rules.
+This is the most important function in the game. It compares the player’s guess with the secret word. It returns a list of tuples. Each tuple has a letter and its result: `"correct"`, `"present"`, or `"absent"`. The function uses a two-pass method to handle repeated letters correctly. In the first pass, it checks which letters are in the correct position. In the second pass, it checks if the other letters are somewhere else in the word. This stops repeated letters from being counted more than once. It also follows the real Wordle rules.
 
 ### `is_valid_word(word, word_list)`
 This function checks if the player’s guess is valid.
-It makes sure that the word has exactly 5 characters, contains only letters, and is included in the word list. It also removes any extra spaces before checking the word.
-If the word does not meet these conditions, the function returns `False`, and the player has to enter a different word.
+It checks that the word:
+* Has exactly 5 characters
+* Only contains letters
+* Is inside the word list
+It also removes extra spaces before checking the word. If the word is not valid, the function returns `False`, and the player must enter another word.
 
 ### `format_feedback(result)`
-This function takes the result from `check_guess` and turns it into a colored string that can be shown in the terminal.
-It uses the `colorama` library to give each letter a green, yellow, or white background depending on whether the letter is correct, present, or absent.
-We separated this function from `check_guess` because they have different purposes. `check_guess` handles the game logic, while `format_feedback` handles how the result looks on the screen. This helps keep the code cleaner and easier to follow.
+This function takes the result from `check_guess` and changes it into a colored string for the terminal. It uses the `colorama` library to give each letter a green, yellow, or white background. The color depends on whether the letter is correct, present, or absent. We kept this function separate from `check_guess` because they have different jobs. `check_guess` checks the game logic, while `format_feedback` shows the result on the screen. This keeps the code clean and easy to understand.
 
 ### `test_project.py`
 This file contains 23 tests written with `pytest`. The tests are organized by function and cover a wide range of cases:
@@ -88,17 +83,17 @@ Lists the two packages needed to run this project:
 
 ---
 ## Design decisions
-Why Colorama
-Our goal was to provide the same color feedback as in the original game, Wordle. Colorama is the easiest way to have this functionality with no extra setup on your computer, regardless of whether you're running Windows, Mac. If we didn't use Colorama on your computer, then the color codes would show up as garbled letters/characters.
+### Why we used Colorama
+We wanted the game to show colors like the real Wordle game. We used Colorama because it is easy to use and works on Windows and Mac. Without Colorama, the color codes may appear as strange letters or symbols instead of colors.
 
-Why Two-pass algorithm  
-Originally we began developing the function `check_guess` using a single-pass approach. It wasn't until we started testing it with guesses that contained repeated letters that we discovered issues when returning the correct answer. For example, if `STONE` is the answer and `SCENE` is the guess, then there is only ONE 'E' in the answer. Using a single-pass approach would have returned both 'E's from the guess. The solution was to use a two-pass approach: first, find and lock correct guess letter placements before checking letter placement with the remaining letters.
+### Why we used a two-pass algorithm
+At first, we used a single-pass method in the `check_guess` function. But when we tested words with repeated letters, the results were sometimes wrong. For example, if the answer is `STONE` and the guess is `SCENE`, the answer only has one `E`. A single-pass method could mark both `E`s as correct or present. To fix this, we used a two-pass method. First, the function checks the letters that are in the correct position. Then, it checks the other letters. This helps the game handle repeated letters correctly.
 
-Why keep functions small and separate
-We wanted each function of our application to have very clear purpose. Thus, `check_guess` only checks guessed letter placement, `format_feedback` only processes color feedback, and `is_valid_word` only validates guesses input by the user. This allowed us to perform each of our functional tests independently of the others (we tested each function by itself), so that when we found issues with functionality we could accurately identify where the issue was located in our code and address it.
+### Why we kept the functions small and separate
+We wanted each function to have one clear job. For example, `check_guess` checks the letters, `format_feedback` shows the colors, and `is_valid_word` checks if the guess is valid. This also made testing easier. We could test each function by itself and find problems faster.
 
-Why load words from a file
-Hard-coding hundreds of words directly in the Python script would make the code messy and hard to read. Keeping words in a separate file also means we can easily add or remove words without changing any logic.
+### Why we loaded the words from a file
+Putting hundreds of words inside the Python code would make it messy and hard to read. Using a separate file keeps the code clean. It also makes it easy to add or remove words without changing the game logic.
 
 ---
 ## Authors
@@ -108,4 +103,4 @@ Hult International Business School — SUM1 2026
 
 ---
 ## Acknowledgements
-This project was built as the CS50P Final Project. Claude and ChatGPT were used as coding assistants whenever we ran into a problem or got stuck, helping us debug and think through solutions. ChatGPT was also used to help generate the list of common 5-letter words in words.txt. Oscar Elizondo helped test the game by playing through multiple rounds and checking that the color feedback and edge cases worked correctly. All code, design decisions, and understanding of the implementation are our own.
+This project was created for the CS50P Final Project. We used Claude and ChatGPT as coding assistants when we had problems or got stuck. They helped us find bugs and think of possible solutions. ChatGPT was also used to help create the list of common 5-letter words in the `words.txt` file. Oscar Elizondo helped test the game by playing several rounds. He checked that the colors worked correctly and that the game handled different cases properly. All the code, design choices, and understanding of how the project works are our own.
