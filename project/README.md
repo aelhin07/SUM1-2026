@@ -98,7 +98,7 @@ Putting hundreds of words inside the Python code would make it messy and hard to
 ## Authors
 Andres Elizondo & Sabrina Ramirez Libertella
 GitHub: @aelhin07 @SabrinaRLiber
-Hult International Business School — SUM1 2026
+Introduction to Programming with Python - BOS-1
 
 ---
 ## Acknowledgements
